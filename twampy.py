@@ -133,7 +133,7 @@ def dp(ms):
     return "%8dus" % long(ms * 1000)
 
 
-def parse_addr(addr, default_port=20000):
+def parse_addr(addr, default_port=862):
     if addr == '':
         # no address given (default: localhost IPv4 or IPv6)
         return "", default_port, 0
@@ -160,7 +160,7 @@ def parse_addr(addr, default_port=20000):
 
 class udpSession(threading.Thread):
 
-    def __init__(self, addr="", port=20000, tos=0, ttl=64, do_not_fragment=False, ipversion=4):
+    def __init__(self, addr="", port=862, tos=0, ttl=64, do_not_fragment=False, ipversion=4):
         threading.Thread.__init__(self)
         if ipversion == 6:
             self.bind6(addr, port, tos, ttl)
@@ -305,8 +305,8 @@ class twampySessionSender(udpSession):
     def __init__(self, args):
         # Session Sender / Session Reflector:
         #   get Address, UDP port, IP version from near_end/far_end attributes
-        sip, spt, sipv = parse_addr(args.near_end, 20000)
-        rip, rpt, ripv = parse_addr(args.far_end,  20001)
+        sip, spt, sipv = parse_addr(args.near_end, 862)
+        rip, rpt, ripv = parse_addr(args.far_end,  862)
 
         ipversion = 6 if (sipv == 6) or (ripv == 6) else 4
         udpSession.__init__(self, sip, spt, args.tos, args.ttl, args.do_not_fragment, ipversion)
@@ -380,7 +380,7 @@ class twampySessionSender(udpSession):
 class twampySessionReflector(udpSession):
 
     def __init__(self, args):
-        addr, port, ipversion = parse_addr(args.near_end, 20001)
+        addr, port, ipversion = parse_addr(args.near_end, 862)
 
         if args.padding != -1:
             self.padmix = [args.padding]
@@ -486,7 +486,7 @@ class twampyControlClient:
 
         self.nbrSessions = 0
 
-    def reqSession(self, sender="", s_port=20001, receiver="", r_port=20002, startTime=0, timeOut=3, dscp=0, padding=0):
+    def reqSession(self, sender="", s_port=862, receiver="", r_port=862, startTime=0, timeOut=3, dscp=0, padding=0):
         typeP = dscp << 24
 
         if startTime != 0:
@@ -560,8 +560,8 @@ def twl_sender(args):
 def twamp_controller(args):
     # Session Sender / Session Reflector:
     #   get Address, UDP port, IP version from near_end/far_end attributes
-    sip, spt, ipv = parse_addr(args.near_end, 20000)
-    rip, rpt, ipv = parse_addr(args.far_end,  20001)
+    sip, spt, ipv = parse_addr(args.near_end, 862)
+    rip, rpt, ipv = parse_addr(args.far_end,  862)
 
     client = twampyControlClient(server=rip, ipversion=ipv)
     client.connectionSetup()
@@ -585,8 +585,8 @@ def twamp_controller(args):
 def twamp_ctclient(args):
     # Session Sender / Session Reflector:
     #   get Address, UDP port, IP version from twamp sender/server attributes
-    sip, spt, ipv = parse_addr(args.twl_send, 20000)
-    rip, rpt, ipv = parse_addr(args.twserver, 20001)
+    sip, spt, ipv = parse_addr(args.twl_send, 862)
+    rip, rpt, ipv = parse_addr(args.twserver, 862)
 
     client = twampyControlClient(server=rip, ipversion=ipv)
     client.connectionSetup()
@@ -712,28 +712,28 @@ if __name__ == '__main__':
 
     p_responder = subparsers.add_parser('responder', help='TWL responder', parents=[debug_parser, ipopt_parser])
     group = p_responder.add_argument_group("TWL responder options")
-    group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":20001")
+    group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":862")
     group.add_argument('--timer', metavar='value',   default=0,     type=int, help='TWL session reset')
 
     p_sender = subparsers.add_parser('sender', help='TWL sender', parents=[debug_parser, ipopt_parser])
     group = p_sender.add_argument_group("TWL sender options")
-    group.add_argument('far_end', nargs='?', metavar='remote-ip:port', default="127.0.0.1:20001")
-    group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":20000")
+    group.add_argument('far_end', nargs='?', metavar='remote-ip:port', default="127.0.0.1:862")
+    group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":862")
     group.add_argument('-i', '--interval', metavar='msec', default=100,  type=int, help="[100,1000]")
-    group.add_argument('-c', '--count',    metavar='packets', default=100,  type=int, help="[1..9999]")
+    group.add_argument('-c', '--count',    metavar='packets', default=50,  type=int, help="[1..9999]")
 
     p_control = subparsers.add_parser('controller', help='TWAMP controller', parents=[debug_parser, ipopt_parser])
     group = p_control.add_argument_group("TWAMP controller options")
-    group.add_argument('far_end', nargs='?', metavar='remote-ip:port', default="127.0.0.1:20001")
-    group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":20000")
+    group.add_argument('far_end', nargs='?', metavar='remote-ip:port', default="127.0.0.1:862")
+    group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":862")
     group.add_argument('-i', '--interval', metavar='msec', default=100,  type=int, help="[100,1000]")
-    group.add_argument('-c', '--count',    metavar='packets', default=100,  type=int, help="[1..9999]")
+    group.add_argument('-c', '--count',    metavar='packets', default=50,  type=int, help="[1..9999]")
 
     p_ctclient = subparsers.add_parser('controlclient', help='TWAMP control client', parents=[debug_parser, ipopt_parser])
     group = p_ctclient.add_argument_group("TWAMP control client options")
-    group.add_argument('twl_send', nargs='?', metavar='twamp-sender-ip:port', default="127.0.0.1:20001")
-    group.add_argument('twserver', nargs='?', metavar='twamp-server-ip:port', default=":20000")
-    group.add_argument('-c', '--count',    metavar='packets', default=100,  type=int, help="[1..9999]")
+    group.add_argument('twl_send', nargs='?', metavar='twamp-sender-ip:port', default="127.0.0.1:862")
+    group.add_argument('twserver', nargs='?', metavar='twamp-server-ip:port', default=":862")
+    group.add_argument('-c', '--count',    metavar='packets', default=50,  type=int, help="[1..9999]")
 
     p_dscptab = subparsers.add_parser('dscptable', help='print DSCP table', parents=[debug_parser])
 
