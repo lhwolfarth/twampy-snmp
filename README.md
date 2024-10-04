@@ -26,14 +26,14 @@ Cloning into 'twampy'...
 ```
 
 ##  Usage Notes
-Use padding to configure bidirectional packet/frame sizes:
+Use padding to configure unirectional packet/frame sizes:
 
-IP Version | Padding | Packet Size | Frame Size
+Agent | IP Version | Packet Size | Frame Size
 :---:|:---:| --- | ---
-IPv4 | >=27 | Padding+42 | Padding+56
-IPv6 | >=27 | Padding+62 | Padding+76
+Sender | IPv4 | Padding+14 | Padding+28
+Responder | IPv4 | Padding+38 | Padding+52
 
-Padding default is 27 bytes (to enforce bidirectional behavior).
+Default Padding is 50 bytes.
 
 Use padding value '-1' for IMIX traffic generation:
 
@@ -142,7 +142,7 @@ IP socket options:
 TWL sender options:
   remote-ip:port [default port: 862]
   local-ip:port [default: 127.0.0.1:862]
-  -i msec, --interval msec     [100,1000] [default: 100]
+  -i msec, --interval msec     [100,1000] [default: 200]
   -c packets, --count packets  [1..9999] [default: 50]
 ```
 
