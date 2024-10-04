@@ -1,7 +1,7 @@
 # Python tools for TWAMP and TWAMP light
 Twampy is a Python implementation of the Two-Way Active Measurement
 Protocol (TWAMP and TWAMP light) as defined in RFC5357. This tool
-was developed to validate the Nokia SR OS TWAMP implementation.
+has small customizations from original repository https://github.com/nokia/twampy
 
 ## Supported features
 * unauthenticated mode
@@ -16,9 +16,12 @@ was developed to validate the Nokia SR OS TWAMP implementation.
 * TWAMP Test Session Sender
 * TWAMP light Reflector
 
+## Install Python2.7
+sudo apt install python2.7
+
 ## Installation
 ```
-$ git clone https://github.com/nokia/twampy
+$ git clone https://github.com/lhwolfarth/twampy-snmp
 Cloning into 'twampy'...
 ```
 
@@ -92,7 +95,7 @@ Error Code | Description
 ## Usage example: getting help
 Help on modes of operation:
 ```
-$ ./twampy.py --help
+$ sudo python2.7 ./twampy.py --help
 usage: twampy.py [-h] [-v]
                  {responder,sender,controller,controlclient,dscptable} ...
 
@@ -112,7 +115,7 @@ optional arguments:
 
 Specific help:
 ```
-$ ./twampy.py sender --help
+$ sudo python2.7 ./twampy.py sender --help
 usage: twampy.py sender [-h] [-l filename] [-q | -v | -d]
                         [--tos type-of-service] [--dscp dscp-value]
                         [--ttl time-to-live] [--padding bytes]
@@ -137,32 +140,36 @@ IP socket options:
   --do-not-fragment            keyword (do-not-fragment)
 
 TWL sender options:
-  remote-ip:port
-  local-ip:port
-  -i msec, --interval msec     [100,1000]
-  -c packets, --count packets  [1..9999]
+  remote-ip:port [default port: 862]
+  local-ip:port [default: 127.0.0.1:862]
+  -i msec, --interval msec     [100,1000] [default: 100]
+  -c packets, --count packets  [1..9999] [default: 50]
 ```
 
 
 
-## Usage example against SR OS TWAMP server
-Router configuration:
+## Usage example against Datacom DmOS TWAMP server
+Switch configuration:
 ```
-A:VSR# configure test-oam
-A:VSR>config>test-oam># info
+# show running-config oam twamp reflector
 ----------------------------------------------
-        twamp
-            server
-                prefix 0.0.0.0/0 create
-                exit
-                no shutdown
-            exit
-        exit
+oam
+ twamp
+  reflector
+   ipv4
+    client-address 192.168.255.2
+   !
+   ipv6
+    client-address 2001::1
+   !
+  !
+ !
+!
 ----------------------------------------------
 ```
 Running the test:
 ```
-$ ./twampy.py controller 192.168.255.2
+$ sudo python2.7 ./twampy.py controller 192.168.255.2
 ===============================================================================
 Direction         Min         Max         Avg          Jitter     Loss
 -------------------------------------------------------------------------------
