@@ -122,15 +122,18 @@ def zeros(nbr):
 
 
 def dp(ms):
-    if abs(ms) > 60000:
-        return "%7.1fmin" % float(ms / 60000)
-    if abs(ms) > 10000:
-        return "%7.1fsec" % float(ms / 1000)
-    if abs(ms) > 1000:
-        return "%7.2fsec" % float(ms / 1000)
-    if abs(ms) > 1:
-        return "%8.2fms" % ms
-    return "%8dus" % long(ms * 1000)
+#    if abs(ms) > 60000:
+#        return "%7.1fmin" % float(ms / 60000)
+#    if abs(ms) > 10000:
+#        return "%7.1fsec" % float(ms / 1000)
+#    if abs(ms) > 1000:
+#        return "%7.2fsec" % float(ms / 1000)
+#    if abs(ms) > 1:
+#        return "%8.2fms" % ms
+#    return "%8dus" % long(ms * 1000)
+
+    # Changed to always return the value in milliseconds with 2 decimal places to standardize the return via SNMP
+    return "%8.2fms" % ms
 
 
 def parse_addr(addr, default_port=862):
