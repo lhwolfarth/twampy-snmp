@@ -33,7 +33,7 @@ Agent | IP Version | Packet Size | Frame Size
 Sender | IPv4 | Padding+14 | Padding+28
 Responder | IPv4 | Padding+38 | Padding+52
 
-Default Padding is 50 bytes.
+Default Padding is 26 bytes.
 
 Use padding value '-1' for IMIX traffic generation:
 
