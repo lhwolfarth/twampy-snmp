@@ -719,14 +719,14 @@ if __name__ == '__main__':
     group = p_sender.add_argument_group("TWL sender options")
     group.add_argument('far_end', nargs='?', metavar='remote-ip:port', default="127.0.0.1:862")
     group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":862")
-    group.add_argument('-i', '--interval', metavar='msec', default=100,  type=int, help="[100,1000]")
+    group.add_argument('-i', '--interval', metavar='msec', default=200,  type=int, help="[200,1000]")
     group.add_argument('-c', '--count',    metavar='packets', default=50,  type=int, help="[1..9999]")
 
     p_control = subparsers.add_parser('controller', help='TWAMP controller', parents=[debug_parser, ipopt_parser])
     group = p_control.add_argument_group("TWAMP controller options")
     group.add_argument('far_end', nargs='?', metavar='remote-ip:port', default="127.0.0.1:862")
     group.add_argument('near_end', nargs='?', metavar='local-ip:port', default=":862")
-    group.add_argument('-i', '--interval', metavar='msec', default=100,  type=int, help="[100,1000]")
+    group.add_argument('-i', '--interval', metavar='msec', default=200,  type=int, help="[100,1000]")
     group.add_argument('-c', '--count',    metavar='packets', default=50,  type=int, help="[1..9999]")
 
     p_ctclient = subparsers.add_parser('controlclient', help='TWAMP control client', parents=[debug_parser, ipopt_parser])
