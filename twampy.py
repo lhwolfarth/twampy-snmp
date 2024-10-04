@@ -702,7 +702,7 @@ if __name__ == '__main__':
     group.add_argument('--tos',     metavar='type-of-service', default=0x88, type=int, help='IP TOS value')
     group.add_argument('--dscp',    metavar='dscp-value', help='IP DSCP value')
     group.add_argument('--ttl',     metavar='time-to-live', default=64,   type=int, help='[1..128]')
-    group.add_argument('--padding', metavar='bytes', default=0,    type=int, help='IP/UDP mtu value')
+    group.add_argument('--padding', metavar='bytes', default=50,    type=int, help='IP/UDP mtu value')
     group.add_argument('--do-not-fragment',  action='store_true', help='keyword (do-not-fragment)')
 
     parser = argparse.ArgumentParser()
