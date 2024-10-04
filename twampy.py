@@ -486,7 +486,7 @@ class twampyControlClient:
 
         self.nbrSessions = 0
 
-    def reqSession(self, sender="", s_port=862, receiver="", r_port=862, startTime=0, timeOut=3, dscp=0, padding=0):
+    def reqSession(self, sender="", s_port=862, receiver="", r_port=862, startTime=0, timeOut=3, dscp=0, padding=50):
         typeP = dscp << 24
 
         if startTime != 0:
@@ -702,7 +702,7 @@ if __name__ == '__main__':
     group.add_argument('--tos',     metavar='type-of-service', default=0x88, type=int, help='IP TOS value')
     group.add_argument('--dscp',    metavar='dscp-value', help='IP DSCP value')
     group.add_argument('--ttl',     metavar='time-to-live', default=64,   type=int, help='[1..128]')
-    group.add_argument('--padding', metavar='bytes', default=50,    type=int, help='IP/UDP mtu value')
+    group.add_argument('--padding', metavar='bytes', default=26,    type=int, help='IP/UDP mtu value')
     group.add_argument('--do-not-fragment',  action='store_true', help='keyword (do-not-fragment)')
 
     parser = argparse.ArgumentParser()
