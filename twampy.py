@@ -538,25 +538,25 @@ class twampyControlClient:
 
 def twl_responder(args):
     reflector = twampySessionReflector(args)
-    reflector.setDaemon(True)
-    reflector.setName("twl_responder")
+    reflector.daemon=True
+    reflector.name="twl_responder"
     reflector.start()
 
     signal.signal(signal.SIGINT, reflector.stop)
 
-    while reflector.isAlive():
+    while reflector.is_alive():
         time.sleep(0.1)
 
 
 def twl_sender(args):
     sender = twampySessionSender(args)
-    sender.setDaemon(True)
-    sender.setName("twl_responder")
+    sender.daemon=True
+    sender.name="twl_responder"
     sender.start()
 
     signal.signal(signal.SIGINT, sender.stop)
 
-    while sender.isAlive():
+    while sender.is_alive():
         time.sleep(0.1)
 
 
@@ -573,12 +573,12 @@ def twamp_controller(args):
         client.startSessions()
 
         sender = twampySessionSender(args)
-        sender.setDaemon(True)
-        sender.setName("twl_responder")
+        sender.daemon=True
+        sender.name="twl_responder"
         sender.start()
         signal.signal(signal.SIGINT, sender.stop)
 
-        while sender.isAlive():
+        while sender.is_alive():
             time.sleep(0.1)
         time.sleep(5)
 
