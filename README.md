@@ -16,8 +16,8 @@ has small customizations from original repository https://github.com/nokia/twamp
 * TWAMP Test Session Sender
 * TWAMP light Reflector
 
-## Install Python2.7
-sudo apt install python2.7
+## Install Python3
+sudo apt install python3
 
 ## Installation
 ```
@@ -97,7 +97,7 @@ Error Code | Description
 ## Usage example: getting help
 Help on modes of operation:
 ```
-$ sudo python2.7 ./twampy.py --help
+$ sudo python3 ./twampy.py --help
 usage: twampy.py [-h] [-v]
                  {responder,sender,controller,controlclient,dscptable} ...
 
@@ -117,7 +117,7 @@ optional arguments:
 
 Specific help:
 ```
-$ sudo python2.7 ./twampy.py sender --help
+$ sudo python3 ./twampy.py sender --help
 usage: twampy.py sender [-h] [-l filename] [-q | -v | -d]
                         [--tos type-of-service] [--dscp dscp-value]
                         [--ttl time-to-live] [--padding bytes]
@@ -171,7 +171,7 @@ oam
 ```
 Running the test:
 ```
-$ sudo python2.7 ./twampy.py controller 192.168.255.2
+$ sudo python3 ./twampy.py controller 192.168.255.2
 ===============================================================================
 Direction         Min         Max         Avg          Jitter     Loss
 -------------------------------------------------------------------------------
