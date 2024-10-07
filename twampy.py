@@ -53,7 +53,7 @@
 #    - Support for RFC 5938 Individual Session Control                       #
 #    - Support for RFC 6038 Reflect Octets Symmetrical Size                  #
 #                                                                            #
-#  v2.0 (fork)                                                               #
+#  v2.0 (fork):                                                               #
 #     - support to python3                                                   #
 #     - new default values                                                   #
 #     - new data results presentation with other values                      #
