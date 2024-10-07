@@ -284,20 +284,65 @@ class twampStatistics():
 
         self.count += 1
 
+# Original function from https://github.com/nokia/twampy/blob/master/twampy.py
+#    def dump(self, total):
+#        print("===============================================================================")
+#        print("Direction         Min         Max         Avg          Jitter     Loss")
+#        print("-------------------------------------------------------------------------------")
+#        if self.count > 0:
+#            self.lossRT = total - self.count
+#            print("  Outbound:    %s  %s  %s  %s    %5.1f%%" % (dp(self.minOB), dp(self.maxOB), dp(self.sumOB / self.count), dp(self.jitterOB), 100 * float(self.lossOB) / total))
+#            print("  Inbound:     %s  %s  %s  %s    %5.1f%%" % (dp(self.minIB), dp(self.maxIB), dp(self.sumIB / self.count), dp(self.jitterIB), 100 * float(self.lossIB) / total))
+#            print("  Roundtrip:   %s  %s  %s  %s    %5.1f%%" % (dp(self.minRT), dp(self.maxRT), dp(self.sumRT / self.count), dp(self.jitterRT), 100 * float(self.lossRT) / total))
+#        else:
+#            print("  NO STATS AVAILABLE (100% loss)")
+#        print("-------------------------------------------------------------------------------")
+#        print("                                                    Jitter Algorithm [RFC1889]")
+#        print("===============================================================================")
+#        sys.stdout.flush()
+
     def dump(self, total):
-        print("===============================================================================")
-        print("Direction         Min         Max         Avg          Jitter     Loss")
-        print("-------------------------------------------------------------------------------")
+        print("============ STATISTICS ============")
         if self.count > 0:
             self.lossRT = total - self.count
-            print("  Outbound:    %s  %s  %s  %s    %5.1f%%" % (dp(self.minOB), dp(self.maxOB), dp(self.sumOB / self.count), dp(self.jitterOB), 100 * float(self.lossOB) / total))
-            print("  Inbound:     %s  %s  %s  %s    %5.1f%%" % (dp(self.minIB), dp(self.maxIB), dp(self.sumIB / self.count), dp(self.jitterIB), 100 * float(self.lossIB) / total))
-            print("  Roundtrip:   %s  %s  %s  %s    %5.1f%%" % (dp(self.minRT), dp(self.maxRT), dp(self.sumRT / self.count), dp(self.jitterRT), 100 * float(self.lossRT) / total))
+
+            print("Tx Packets:          {:>8}".format(total))
+            print("Rx Packets:          {:>8}".format(self.count))
+            print("Lost Packets:        {:>8}".format(self.lossRT))
+            print("Packet Loss Ratio:   {:>8.1f}%".format(100 * float(self.lossRT) / total))
+            print("------------------------------------")
+
+            print("Tx Delay Min:        {:>8}".format(dp(self.minOB)))
+            print("Tx Delay Max:        {:>8}".format(dp(self.maxOB)))
+            print("Tx Delay Avg:        {:>8}".format(dp(self.sumOB / self.count)))
+            print("Tx Jitter:           {:>8}".format(dp(self.jitterOB)))
+            print("------------------------------------")
+
+            print("Rx Delay Min:        {:>8}".format(dp(self.minIB)))
+            print("Rx Delay Max:        {:>8}".format(dp(self.maxIB)))
+            print("Rx Delay Avg:        {:>8}".format(dp(self.sumIB / self.count)))
+            print("Rx Jitter:           {:>8}".format(dp(self.jitterIB)))
+            print("------------------------------------")
+
+            print("Roundtrip Delay Min: {:>8}".format(dp(self.minRT)))
+            print("Roundtrip Delay Max: {:>8}".format(dp(self.maxRT)))
+            print("Roundtrip Delay Avg: {:>8}".format(dp(self.sumRT / self.count)))
+            print("Roundtrip Jitter:    {:>8}".format(dp(self.jitterRT)))
+            print("------------------------------------")
+
+            print("Delay Min:           {:>8}".format(dp(min(self.minIB,self.minOB))))
+            print("Delay Max:           {:>8}".format(dp(max(self.maxIB,self.maxOB))))
+            print("Delay Avg:           {:>8}".format(dp((self.sumRT / self.count) / 2)))
+            print("Jitter Min:          {:>8}".format(dp(min(self.jitterIB,self.jitterOB))))
+            print("Jitter Max:          {:>8}".format(dp(max(self.jitterIB,self.jitterOB))))
+            print("Jitter Avg:          {:>8}".format(dp((self.jitterIB + self.jitterOB) / 2)))
+
         else:
-            print("  NO STATS AVAILABLE (100% loss)")
-        print("-------------------------------------------------------------------------------")
-        print("                                                    Jitter Algorithm [RFC1889]")
-        print("===============================================================================")
+            print("NO STATS AVAILABLE (100% loss)")
+
+        print("====================================")
+        print("          Jitter Algorithm [RFC1889]")
+        print("====================================")
         sys.stdout.flush()
 
 #############################################################################
