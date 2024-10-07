@@ -7,6 +7,7 @@
 #  History Change Log:                                                       #
 #                                                                            #
 #    1.0  [SW]  2017/08/18    first version                                  #
+#    2.0  [SW]  2024/10/07    second version (forked)                        #
 #                                                                            #
 #  Objective:                                                                #
 #    Python implementation of the Two-Way Active Measurement Protocol        #
@@ -52,26 +53,38 @@
 #    - Support for RFC 5938 Individual Session Control                       #
 #    - Support for RFC 6038 Reflect Octets Symmetrical Size                  #
 #                                                                            #
+#  v2.0 (fork)                                                               #
+#     - support to python3                                                   #
+#     - new default values                                                   #
+#     - new data results presentation with other values                      #
+#                                                                            #
 #  License:                                                                  #
 #    Licensed under the BSD license                                          #
 #    See LICENSE.md delivered with this project for more information.        #
 #                                                                            #
-#  Author:                                                                   #
+#  Author (v1.0):                                                            #
 #                                                                            #
 #    Sven Wisotzky                                                           #
 #    mail:  sven.wisotzky(at)nokia.com                                       #
+#                                                                            #
+#  Fork (v2.0)                                                               #
+#                                                                            #
+#    Luis Wolfarth                                                           #
+#    mail:  wolfarth@gmail.com                                               #
+#                                                                            #
 ##############################################################################
 
 """
-TWAMP validation tool for Python Version 1.0
+TWAMP validation tool for Python Version 3.0
 Copyright (C) 2013-2017 Nokia. All Rights Reserved.
 """
 
 __title__ = "twampy"
-__version__ = "1.0"
+__version__ = "2.0"
 __status__ = "released"
-__author__ = "Sven Wisotzky"
-__date__ = "2017 August 18th"
+__Author__ = "Sven Wisotzky"
+__fork__ = "Luis Wolfarth"
+__date__ = "2024 October 07"
 
 #############################################################################
 
